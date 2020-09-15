@@ -272,7 +272,6 @@ var SDKBridge = function(ctr, data) {
     var data = this.cache.getSysMsgs();
     var array = [];
     var offlineMsgs = [];
-    debugger
     for (var i = sysMsgs.length - 1; i >= 0; i--) {
       if (sysMsgs[i].category === 'team') {
         array.push(sysMsgs[i]);
@@ -301,7 +300,8 @@ var SDKBridge = function(ctr, data) {
       return b.time - a.time;
     });
     this.cache.setSysMsgs(data);
-    if (msg.category !== 'team') {
+    // 不支持数据库时，没有msg.category
+    if (msg.category && msg.category !== 'team') {
       switch (type) {
         case 'deleteFriend':
           cache.removeFriend(msg.from);
